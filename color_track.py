@@ -9,8 +9,8 @@ while(1):
     _, frame = cap.read()
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    lower_light_pink = np.array([168, 100, 100])
-    upper_light_pink = np.array([188, 255, 255])
+    lower_light_pink = np.array([0, 100, 53])
+    upper_light_pink = np.array([0, 100, 100])
     mask = cv2.inRange(hsv, lower_light_pink, upper_light_pink)
 
     res = cv2.bitwise_and(frame,frame, mask= mask)
