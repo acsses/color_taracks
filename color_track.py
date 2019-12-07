@@ -2,22 +2,29 @@
 import numpy as np
 import cv2
 import json
+import smbus    
 
 cap = cv2.VideoCapture(0)
 
 while(1):
+    bus = smbus.SMBus(1)
+    adress = 0x04 
     _, frame = cap.read()
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     lower_light_pink = np.array([0, 100, 53])
     upper_light_pink = np.array([0, 100, 100])
+    lower_black = np.array([0,0,0])
+    upper_black =np.array([0,0,80])
     mask = cv2.inRange(hsv, lower_light_pink, upper_light_pink)
+    mask_line cv2.inRange(hsv,lower_black,upper_black)
 
     res = cv2.bitwise_and(frame,frame, mask= mask)
 
     cv2.imshow('frame',frame)
     cv2.imshow('mask',mask)
     cv2.imshow('res',res)
+    cv2.imshow('balck',mask_line)
 
     contours , hierarchy = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     rects = []
@@ -35,6 +42,7 @@ while(1):
       tar = rect.tolist()
       key=["x","y","xw","yh"]
       dic=dict(zip(key,tar))
+      bus.write_byte(adress, dic)
       print(dic)
       json.dump(dic,file)
     k = cv2.waitKey(5) & 0xFF
