@@ -27,7 +27,9 @@ while(1):
     cv2.imshow('balck',mask_line)
 
     contours , hierarchy = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    balck_rect , black_shape = cv2.findContours(mask_line, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     rects = []
+    rects_black = []
     tar=[0,0,0,0]
     i = 0
     file =open('test.json','w')
@@ -35,6 +37,10 @@ while(1):
         approx = cv2.convexHull(contour)
         rect = cv2.boundingRect(approx)
         rects.append(np.array(rect))
+    for target in balck_rect
+        approx_black = cv2.convexHull(target)
+        rect_black = cv2.boundingRect(approx_black)
+        rects_black.append(np.array(rect_black))
     if len(rects) > 0:
       rect = max(rects, key=(lambda x: x[2] * x[3]))
       cv2.rectangle(frame, tuple(rect[0:2]), tuple(rect[0:2] + rect[2:4]), (0, 0, 255), thickness=2)
