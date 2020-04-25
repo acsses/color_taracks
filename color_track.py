@@ -17,7 +17,7 @@ while(1):
     lower_black = np.array([0,0,0])
     upper_black =np.array([0,0,80])
     mask = cv2.inRange(hsv, lower_light_pink, upper_light_pink)
-    mask_line cv2.inRange(hsv,lower_black,upper_black)
+    mask_line = cv2.inRange(hsv,lower_black,upper_black)
 
     res = cv2.bitwise_and(frame,frame, mask= mask)
 
@@ -37,7 +37,7 @@ while(1):
         approx = cv2.convexHull(contour)
         rect = cv2.boundingRect(approx)
         rects.append(np.array(rect))
-    for target in balck_rect
+    for target in balck_rect:
         approx_black = cv2.convexHull(target)
         rect_black = cv2.boundingRect(approx_black)
         rects_black.append(np.array(rect_black))
