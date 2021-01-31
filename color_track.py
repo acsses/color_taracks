@@ -8,7 +8,7 @@ cap = cv2.VideoCapture(0)
 
 while(1):
     bus = smbus.SMBus(1)
-    adress = 0x04 
+    adress = 0x04
     _, frame = cap.read()
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
